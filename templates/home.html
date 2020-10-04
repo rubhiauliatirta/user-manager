@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">Golang Hacktiv8</a>
+    <a href="/logout">Logout</a>
+  </nav>
+  <div class="container p-4">
+    {{if .Message}}
+    <div class="alert alert-primary {{if eq .IsError true}}alert-danger{{else}}alert-success{{end}}" role="alert">
+      {{ .Message}}
+    </div>
+    {{end}}
+    <div class="row text-center d-flex justify-content-center">
+      <h2>User Data</h2>
+      <table class="table table-sm table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .Users}}
+          <tr>
+            <td>{{.Email}}</td>
+            <td>{{.Name}}</td>
+            <td class="d-flex">
+              <a href="/detail?id={{.Id}}" class="btn btn-sm btn-success ">View</a>
+              <a href="/edit?id={{.Id}}" class="btn btn-sm btn-warning ml-2">Edit</a>
+              <a href="/delete?id={{.Id}}" class="btn btn-sm btn-danger ml-2">Delete</a>
+            </td>
+          </tr>
+          {{else}}
+          <tr>
+            <td colspan="6">No user in database</td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
